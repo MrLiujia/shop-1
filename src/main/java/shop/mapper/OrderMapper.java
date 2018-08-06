@@ -25,4 +25,6 @@ public interface OrderMapper {
 
     void setStateToPaid(Long orderId);
 
+    Integer deleteCanceledOrders();
+
 }

@@ -16,6 +16,8 @@ import org.springframework.core.env.Environment;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -36,6 +38,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @PropertySource({"classpath:jdbc.properties", "classpath:alipay.properties"})
 @MapperScan("shop.mapper")
 @EnableTransactionManagement
+@EnableScheduling // 开启调度支持
+@EnableAsync // 开启异步执行任务支持
 public class AppConfig extends WebMvcConfigurerAdapter {
     @Override
     public void configureViewResolvers(ViewResolverRegistry registry) {

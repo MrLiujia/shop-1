@@ -24,4 +24,8 @@ public interface OrderService {
 
     void handlePayResult(Map<String, String> paramMap);
 
+    /**
+     * 删除已取消订单，通过cron调用，返回类型必须为void，参数列表必须为空
+     */
+    void deleteCanceledOrders();
 }

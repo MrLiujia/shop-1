@@ -69,4 +69,9 @@
   <update id="setStateToPaid">
     update "ORDER" set "STATE" = 'Paid' where ID = #{id}
   </update>
+  
+  <delete id="deleteCanceledOrders">
+    delete from "ORDER" 
+    where STATE = 'Canceled' and current_timestamp() >= timestampadd('DAY', 2, CREATED_TIME)
+  </delete>
 </mapper>

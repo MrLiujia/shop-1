@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -196,6 +197,14 @@ public class OrderServiceImpl implements OrderService {
             // 设置订单状态为已支付
             orderMapper.setStateToPaid(orderId);
         }
+    }
+
+    @Scheduled(cron = "0 0 3 * * *") // 每天凌晨3点执行该方法
+    @Override
+    public void deleteCanceledOrders() {
+        logger.info("删除过期已取消订单");
+        Integer count = orderMapper.deleteCanceledOrders();
+        logger.info("已删除" + count + "个订单");
     }
 
 }
