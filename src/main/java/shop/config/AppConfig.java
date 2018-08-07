@@ -22,6 +22,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
@@ -95,5 +96,10 @@ public class AppConfig extends WebMvcConfigurerAdapter {
     @Bean
     public ObjectMapper objectMapper() {
         return new ObjectMapper();
+    }
+    
+    @Bean // 简化了http请求的发送和响应的处理
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
     }
 }
