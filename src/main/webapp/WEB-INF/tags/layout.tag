@@ -23,6 +23,7 @@
     <a href="${contextPath}/">首页</a>
     <sec:authorize access="isAuthenticated()">
       <sec:authentication property="principal.username" />
+      [${userProvince}]
       <a href="${contextPath}/uc/shopping-cart">购物车</a>
       <a href="${contextPath}/uc/shipping-addresses/">收货地址</a>
       <a href="${contextPath}/uc/orders/">订单</a>

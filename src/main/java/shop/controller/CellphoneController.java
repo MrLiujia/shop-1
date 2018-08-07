@@ -11,7 +11,7 @@ import shop.model.Cellphone;
 import shop.service.CellphoneService;
 
 @Controller
-public class CellphoneController {
+public class CellphoneController extends BaseController {
     private CellphoneService cellphoneService;
 
     @Autowired

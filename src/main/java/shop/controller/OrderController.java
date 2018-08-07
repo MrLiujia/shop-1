@@ -28,7 +28,7 @@ import shop.service.ShoppingCartService;
 import com.alipay.api.AlipayApiException;
 
 @Controller
-public class OrderController {
+public class OrderController extends BaseController {
     private ShoppingCartService shoppingCartService;
     
     private ShippingAddressService shippingAddressService;

@@ -18,7 +18,7 @@ import shop.model.ShippingAddress;
 import shop.service.ShippingAddressService;
 
 @Controller
-public class ShippingAddressController {
+public class ShippingAddressController extends BaseController {
     private ShippingAddressService shippingAddressService;
     
     @Autowired

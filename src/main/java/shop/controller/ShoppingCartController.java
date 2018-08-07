@@ -13,7 +13,7 @@ import shop.model.ShoppingCart;
 import shop.service.ShoppingCartService;
 
 @Controller
-public class ShoppingCartController {
+public class ShoppingCartController extends BaseController {
     private ShoppingCartService shoppingCartService;
     
     @Autowired

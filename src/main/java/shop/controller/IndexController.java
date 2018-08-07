@@ -2,6 +2,7 @@ package shop.controller;
 
 import java.util.List;
 
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,7 +17,7 @@ import shop.service.CellphoneService;
 import shop.service.IpService;
 
 @Controller
-public class IndexController {
+public class IndexController extends BaseController {
     private CellphoneService cellphoneService;
     
     private IpService ipService;
@@ -31,7 +32,7 @@ public class IndexController {
     @RequestMapping(method = RequestMethod.GET, value = "/")
     public String index(Model model, 
                         @ModelAttribute Cellphone cellphone) {
-        System.out.println("手机搜索条件: " + cellphone);
+        logger.debug("手机搜索条件: " + cellphone);
         List<Cellphone> cellphones = cellphoneService.search(cellphone);
         model.addAttribute("cellphones", cellphones);
         return "index";
