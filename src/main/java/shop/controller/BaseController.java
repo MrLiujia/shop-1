@@ -24,11 +24,15 @@ public abstract class BaseController {
         logger.debug("准备页面的公共数据");
         
         String ip = request.getRemoteAddr(); // 获取请求的ip地址
-        String province = (String) session.getAttribute("userProvince");
+        String province = null;
         
-        if (province == null) {
-            province = ipService.ipToProvince(ip);
-            session.setAttribute("userProvince", province); // 关键
+        synchronized (session) { // 防止多线程并发访问时不必要的多次进入if
+            province = (String) session.getAttribute("userProvince");
+            
+            if (province == null) {
+                province = ipService.ipToProvince(ip);
+                session.setAttribute("userProvince", province); // 关键
+            }            
         }
         
         model.addAttribute("userProvince", province);
