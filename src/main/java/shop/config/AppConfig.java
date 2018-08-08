@@ -2,12 +2,19 @@ package shop.config;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 
+import javax.cache.CacheManager;
+import javax.cache.Caching;
+import javax.cache.spi.CachingProvider;
 import javax.sql.DataSource;
 
 import org.apache.commons.io.FileUtils;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.cache.jcache.JCacheCacheManager;
+import org.springframework.cache.jcache.JCacheManagerFactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -41,6 +48,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @EnableTransactionManagement
 @EnableScheduling // 开启调度支持
 @EnableAsync // 开启异步执行任务支持
+@EnableCaching // 开启缓存支持
 public class AppConfig extends WebMvcConfigurerAdapter {
     @Override
     public void configureViewResolvers(ViewResolverRegistry registry) {
@@ -101,5 +109,20 @@ public class AppConfig extends WebMvcConfigurerAdapter {
     @Bean // 简化了http请求的发送和响应的处理
     public RestTemplate restTemplate() {
         return new RestTemplate();
+    }
+    
+    @Bean
+    public JCacheCacheManager cacheManager() throws Exception {
+        return new JCacheCacheManager(jCacheManager());
+    }
+
+    @Bean
+    public CacheManager jCacheManager() throws Exception {
+        CachingProvider cachingProvider = Caching.getCachingProvider();
+        CacheManager manager = cachingProvider.getCacheManager( 
+            getClass().getResource("/ehcache.xml").toURI(), // ehcache配置文件
+            getClass().getClassLoader()
+            ); 
+        return manager;
     }
 }

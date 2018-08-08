@@ -6,6 +6,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -23,7 +24,10 @@ public class IpServiceImpl implements IpService {
     public IpServiceImpl(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
-
+    
+    // 这个方法执行之前会先看缓存中有没有key（即参数ip）对应的value，
+    // 没有就会执行该方法，将返回值放入缓存并返回该值；若缓存已存在，则该方法不会执行，直接返回缓存值
+    @Cacheable(cacheNames = "ip-to-province", sync = true) 
     @Override
     public String ipToProvince(String ip) {
         Map<String, String> params = new HashMap<>();

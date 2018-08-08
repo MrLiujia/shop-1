@@ -24,16 +24,7 @@ public abstract class BaseController {
         logger.debug("准备页面的公共数据");
         
         String ip = request.getRemoteAddr(); // 获取请求的ip地址
-        String province = null;
-        
-        synchronized (session) { // 防止多线程并发访问时不必要的多次进入if
-            province = (String) session.getAttribute("userProvince");
-            
-            if (province == null) {
-                province = ipService.ipToProvince(ip);
-                session.setAttribute("userProvince", province); // 关键
-            }            
-        }
+        String province = ipService.ipToProvince(ip);
         
         model.addAttribute("userProvince", province);
     }
