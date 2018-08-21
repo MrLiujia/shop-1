@@ -20,7 +20,7 @@
   <div class="header"> 
     <a href="/">首页</a>
     <#if sec.authenticated>
-      ${userDetails.username}
+      ${sec.userDetails.username}
       [${userProvince}]
       <a href="/uc/shopping-cart">购物车</a>
       <a href="/uc/shipping-addresses/">收货地址</a>
