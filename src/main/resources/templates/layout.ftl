@@ -19,8 +19,8 @@
 <body>
   <div class="header"> 
     <a href="/">首页</a>
-    <sec:authorize access="isAuthenticated()">
-      <sec:authentication property="principal.username" />
+    <#if sec.authenticated>
+      ${userDetails.username}
       [${userProvince}]
       <a href="/uc/shopping-cart">购物车</a>
       <a href="/uc/shipping-addresses/">收货地址</a>
@@ -29,12 +29,12 @@
         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         <button type="submit">退出</button>
       </form>  
-    </sec:authorize>  
+    </#if>  
     
-    <sec:authorize access="isAnonymous()">
+    <#if sec.anonymous>
       <a href="/login">登录</a>
       <a href="/register">注册</a>
-    </sec:authorize>
+    </#if>
   </div>
   
   <div class="content">
