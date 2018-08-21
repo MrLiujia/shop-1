@@ -1,0 +1,9 @@
+spring.mvc.static-path-pattern: /assets/**
+
+mybatis.config-location: classpath:mybatis-config.xml
+
+security:
+  enableCsrf: true
+  
+server.port: 8081
+  
